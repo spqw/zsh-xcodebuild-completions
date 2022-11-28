@@ -1,0 +1,125 @@
+#compdef xcodebuild
+
+_actions() {
+  local -a actions
+  actions=( \
+    "build:Build the target in the build root (SYMROOT).  This is the default action, and is used if no action is given." \
+    "build-for-testing:Build the target and associated tests in the build root (SYMROOT).  This will also produce an xctestrun file in the build root. This requires specifying a scheme." \
+    "analyze:Build and analyze a target or scheme from the build root (SYMROOT).  This requires specifying a scheme." \
+    "archive:Archive a scheme from the build root (SYMROOT).  This requires specifying a scheme." \
+    "test:Test a scheme from the build root (SYMROOT).  This requires specifying a scheme and optionally a destination." \
+    "test-without-building:Test compiled bundles. If a scheme is provided with -scheme then the command finds bundles in the build root (SRCROOT).  If an xctestrun file is provided with -xctestrun then the command finds bundles at paths specified in the xctestrun file." \
+    "docbuild:Build the target and associated documentation in the build root (SRCROOT)." \
+    "installsrc:Copy the source of the project to the source root (SRCROOT)." \
+    "install:Build the target and install it into the target's installation directory in the distribution root (DSTROOT)." \
+    "clean:Remove build products and intermediate files from the build root (SYMROOT)."
+    )
+
+  _describe "Build action" actions
+}
+
+_arguments \
+  '(-n -dry-run)'{-n,-dry-run}'[Print but do not execute commands]' \
+  '*: :->actions' \
+  '-allowProvisioningDeviceRegistration[Allow xcodebuild to register your destination device on the developer portal if necessary. This flag only takes effect if -allowProvisioningUpdates is also passed.]' \
+  '-allowProvisioningUpdates[Allow xcodebuild to communicate with the Apple Developer website. For automatically signed targets, xcodebuild will create and update profiles, app IDs, and certificates. For manually signed targets, xcodebuild will download missing or updated provisioning profiles. Requires a developer account to have been added in Xcodes Accounts preference pane or an App Store Connect authentication key to be specified via the -authenticationKeyPath, -authenticationKeyID, and -authenticationKeyIssuerID parameters.]' \
+  '-alltargets[build all targets]' \
+  '-arch[build each target for the architecture ARCH; this will override architectures defined in the project]' \
+  '-archivePath[specifies the directory where any created archives will be placed, or the archive that should be exported]:Archive Path:_directories' \
+  '-authenticationKeyIssuerID[specifies the App Store Connect issuer identifier associated with the authentication key at -authenticationKeyPath. This string can be located in the users and access details for your provider at "https://appstoreconnect.apple.com".]' \
+  '-authenticationKeyPath[specifies the path to an authentication key issued by App Store Connect. If specified, xcodebuild will authenticate with the Apple Developer website using this credential. The -authenticationKeyID and -authenticationKeyIssuerID parameters are required.]' \
+  '-checkFirstLaunchStatus[Check if any First Launch tasks need to be performed]' \
+  '-clonedSourcePackagesDirPath[specifies the directory to which remote source packages are fetch or expected to be found]' \
+  '-configuration[use the build configuration NAME for building each target]' \
+  '-create-xcframework[create an xcframework from prebuilt libraries; -help for more information.]' 
+  '-default-test-execution-time-allowance[the default execution time an individual test is given to execute, if test timeouts are enabled]' \
+  '-derivedDataPath[specifies the directory where build products and other derived data will go]' \
+  '-destination-timeout[wait for TIMEOUT seconds while searching for the destination device]' \
+  '-destination[use the destination described by DESTINATIONSPECIFIER (a comma-separated set of key=value pairs describing the destination to use)]' \
+  '-disableAutomaticPackageResolution[prevents packages from automatically being resolved to versions other than those recorded in the `Package.resolved` file]' \
+  '-disablePackageRepositoryCache[disable use of a local cache of remote package repositories]' \
+  '-downloadAllPlatforms[download all platforms]' \
+  '-downloadAllPreviouslySelectedPlatforms[download all previously selected platforms]' \
+  '-downloadPlatform[download the platform NAME]' \
+  '-dry-run[do everything except actually running the commands]' \
+  '-enableAddressSanitizer[turn the address sanitizer on or off]:enabled:(YES NO)' \
+  '-enableCodeCoverage[turn code coverage on or off when testing]:enabled:(YES NO)' \
+  '-enablePerformanceTestsDiagnostics[enables performance trace and memgraph collection for performance XCTests]' \
+  '-enableThreadSanitizer[Turn the thread sanitizer on/off]:enabled:(YES NO)' \
+  '-enableUndefinedBehaviorSanitizer[Turn the UB sanitizer on/off]:enabled:(YES NO)' \
+  '-exportArchive[specifies that an archive should be exported]' \
+  '-exportFormat[Format for archive]:Format for archive:(IPA PKG APP)' \
+  '-exportInstallerIdentity[Installer identity for archiving]:Installer identity for archiving' \
+  '-exportLanguage[specifies multiple optional ISO 639-1 languages included in a localization export]' \
+  '-exportLocalizations[exports completed and outstanding project localizations]' \
+  '-exportNotarizedApp[export an archive that has been notarized by Apple]' \
+  '-exportOptionsPlist[specifies a path to a plist file that configures archive exporting]' \
+  '-exportPath[specifies the destination for the product exported from an archive]' \
+  '-exportProvisiningProfile[Provisioning profile for archiving]:Provisioning profile for archiving' \
+  '-exportSigningIdentity[Signing identity for archiving]:Signing identity for archiving' \
+  '-exportWithOriginalSigningIdentity[Specifies signing identity for archiving]' \
+  '-find-executable[display the full path to executable NAME in the provided SDK and toolchain]' \
+  '-find-library[display the full path to library NAME in the provided SDK and toolchain]' \
+  '-help[print complete usage]' \
+  '-hideShellScriptEnvironment[dont show shell script environment variables in build log]' \
+  '-importLocalizations[imports localizations for a project, assuming any necessary localized resources have been created in Xcode]' \
+  '-jobs[specify the maximum number of concurrent build operations]' \
+  '-json[output as JSON (note: -json implies -quiet)]' \
+  '-license[show the Xcode and SDK license agreements]' \
+  '-list[lists the targets and configurations in a project, or the schemes in a workspace]' \
+  '-localizationPath[specifies a path to XLIFF localization files]' \
+  '-maximum-concurrent-test-device-destinations[the maximum number of device destinations to test on concurrently]' \
+  '-maximum-concurrent-test-simulator-destinations[the maximum number of simulator destinations to test on concurrently]' \
+  '-maximum-parallel-testing-workers[the maximum number of test runners that will be spawned during parallel testing]' \
+  '-maximum-test-execution-time-allowance[the maximum execution time an individual test is given to execute, regardless of the tests preferred allowance]' \
+  '-only-test-configuration[constrains testing by specifying test configurations to include, and excluding other test configurations]' \
+  '-only-testing[constrains testing by specifying tests to include, and excluding other tests]' \
+  '-onlyUsePackageVersionsFromResolvedFile[prevents packages from automatically being resolved to versions other than those recorded in the `Package.resolved` file]' \
+  '-packageCachePath[path of caches used for package support]' \
+  '-parallel-testing-enabled[overrides the per-target setting in the scheme]' \
+  '-parallel-testing-worker-count[the exact number of test runners that will be spawned during parallel testing]' \
+  '-parallelizeTargets[build independent targets in parallel]' \
+  '-project[build the project NAME]' \
+  '-quiet[do not print any output except for warnings and errors]' \
+  '-resolvePackageDependencies[resolves any Swift package dependencies referenced by the project or workspace]' \
+  '-resultBundlePath[specifies the directory where a result bundle describing what occurred will be placed]:Result bundle path:_directories' \
+  '-resultBundleVersion 3[specifies which result bundle version should be used]' \
+  '-resultStreamPath[specifies the file where a result stream will be written to (the file must already exist)]' \
+  '-retry-tests-on-failure[If specified, tests will retry on failure. May be used in conjunction with -test-iterations <number>, in which case <number> will be the maximum number of iterations. Otherwise, a maximum of 3 is assumed. May not be used with -run-tests-until-failure.]' \
+  '-run-tests-until-failure[If specified, tests will run until they fail. May be used in conjunction with -test-iterations <number>, in which case <number> will be the maximum number of iterations. Otherwise, a maximum of 100 is assumed. May not be used with -retry-tests-on-failure.]' \
+  '-runFirstLaunch[install packages and agree to the license]' \
+  '-scheme[build the scheme NAME]' \
+  '-scmProvider[which implementation to use for Git operations (system/xcode)]' \
+  '-sdk[use SDK as the name or path of the base SDK when building the project]' \
+  '-showBuildSettings[display a list of build settings and values]' \
+  '-showBuildSettingsForIndex[display build settings for the index service]' \
+  '-showBuildTimingSummary[display a report of the timings of all the commands invoked during the build]' \
+  '-showdestinations[display a list of destinations]' \
+  '-showsdks[display a compact list of the installed SDKs]' \
+  '-showTestPlans[display a list of test plans]' \
+  '-skip-test-configuration[constrains testing by specifying test configurations to exclude, but including other test configurations]' \
+  '-skip-testing[constrains testing by specifying tests to exclude, but including other tests]' \
+  '-skipPackagePluginValidation[Skip validation of package plugins (this can be a security risk if they are not from trusted sources)]' \
+  '-skipPackageUpdates[Skip updating package dependencies from their remote]' \
+  '-skipUnavailableActions[specifies that scheme actions that cannot be performed should be skipped instead of causing a failure]' \
+  '-target[build the target NAME]' \
+  '-test-iterations[If specified, tests will run <number> times. May be used in conjunction with either -retry-tests-on-failure or -run-tests-until-failure, in which case this will become the maximum number of iterations.]' \
+  '-test-repetition-relaunch-enabled[Enable or disable, tests repeating in a new process for each repetition.  Must be used in conjunction with -test-iterations, -retry-tests-on-failure, or -run-tests-until-failure. If not specified, tests will repeat in the same process.]' \
+  '-test-timeouts-enabled[enable or disable test timeout behavior]' \
+  '-testLanguage[constrains testing by specifying ISO 639-1 language in which to run the tests]' \
+  '-testPlan[specifies the name of the test plan associated with the scheme to use for testing]' \
+  '-testProductsPath[specifies a path for the test products]' \
+  '-testRegion[constrains testing by specifying ISO 3166-1 region in which to run the tests]' \
+  '-toolchain[use the toolchain with identifier or name NAME]' \
+  '-usage[print brief usage]' \
+  '-verbose[provide additional status output]' \
+  '-version[display the version of Xcode; with -sdk will display info about one or all installed SDKs]' \
+  '-workspace[build the workspace NAME]' \
+  '-xcconfig[apply the build settings defined in the file at PATH as overrides]' \
+  '-xctestrun[specifies a path to a test run specification]' \
+
+case "$state" in
+  actions)
+    _actions
+    ;;
+esac

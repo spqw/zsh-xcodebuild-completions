@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# This script is used to install zsh completions
+# to make them available to the user.
+
+# set options
+set -e # exit on error
+set -u # exit on undefined variable
+set -o pipefail # exit on pipe error
+
+_pathZshSiteFunctions="/usr/local/share/zsh/site-functions"
+mkdir -p "${_pathZshSiteFunctions}"
+cp -r src/* "${_pathZshSiteFunctions}"
+
+echo "Completions installed to ${_pathZshSiteFunctions}"
+echo "You may have to restart your shell to use the new functions."
